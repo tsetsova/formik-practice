@@ -6,20 +6,32 @@ function App() {
   const [name, setName] = useState("");
   const [element, setElement] = useState("default");
 
+  const endpoint = "https://enz3kaqoiji4.x.pipedream.net/";
 
-  const handleSubmit = (e) => {
-    console.log("Submitting...");
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    await fetch(endpoint, {
+      method: "post",
+      mode: "no-cors",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, element })
+    })
+      .then((res) => console.log(res))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleElementChange = (e) => {
     setElement(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
