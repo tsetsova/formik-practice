@@ -4,27 +4,29 @@ import React, { useState } from "react";
 
 function App() {
   const [name, setName] = useState("");
-  const [element, setElement] = useState("default");
+  const [element, setElement] = useState("placeholderElementMessage");
+  const [color, setColor] = useState("placeholderColorMessage");
   const [errors, setErrors] = useState({
     nameInput: null,
     elementSelect: null,
+    colorSelect: null,
   });
 
   const unsetError = (key) => {
-    setErrors(errors => {
+    setErrors((errors) => {
       return {
         ...errors,
         [key]: null,
-      }
+      };
     });
   };
 
   const setError = (key, message) => {
-    setErrors(errors => {
+    setErrors((errors) => {
       return {
         ...errors,
         [key]: message,
-      }
+      };
     });
   };
 
@@ -42,12 +44,19 @@ function App() {
     e.preventDefault();
     handleNameValidate();
 
-    if (element === "default") {
+    if (element === "placeholderElementMessage") {
       setError("elementSelect", "Favorite element is required");
-      return;
     }
 
-    if (errors.nameInput) {
+    if (color === "placeholderColorMessage") {
+      setError("colorSelect", "Favorite color is required");
+    }
+
+    if (
+      errors.nameInput ||
+      element === "placeholderElementMessage" ||
+      color === "placeholderColorMessage"
+    ) {
       return;
     }
 
@@ -58,7 +67,7 @@ function App() {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, element }),
+      body: JSON.stringify({ name, element, color }),
     })
       .then((res) => console.log(res))
       .catch((error) => {
@@ -71,8 +80,13 @@ function App() {
   };
 
   const handleElementChange = (e) => {
-    unsetError("elementSelect")
+    unsetError("placeholderElementMessage");
     setElement(e.target.value);
+  };
+
+  const handleColorChange = (e) => {
+    unsetError("placeholderColorMessage");
+    setColor(e.target.value);
   };
 
   return (
@@ -91,7 +105,7 @@ function App() {
               data-testid="name-input"
               onChange={(e) => handleNameChange(e)}
               onBlur={() => handleNameValidate()}
-              placeholder="Fill your name"
+              placeholder="Fill in your name"
             />
           </label>
           {errors?.nameInput && (
@@ -106,7 +120,7 @@ function App() {
               defaultValue={element}
               onChange={(e) => handleElementChange(e)}
             >
-              <option value="default" disabled hidden>
+              <option value="placeholderElementMessage" disabled hidden>
                 Choose your element
               </option>
               <option value="water">Water</option>
@@ -118,6 +132,32 @@ function App() {
           </label>
           {errors?.elementSelect && (
             <span className="error">{errors.elementSelect}</span>
+          )}
+
+          <label className="label">
+            What's your favorite color?
+            <select
+              name="pokemon"
+              className={`input ${errors.elementSelect && "input-error"}`}
+              data-testid="color-selector"
+              defaultValue={color}
+              onChange={(e) => handleColorChange(e)}
+            >
+              <option value="placeholderColorMessage" disabled hidden>
+                Choose your color
+              </option>
+              <option value="black">Black</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="orange">Orange</option>
+              <option value="red">Red</option>
+              <option value="purple">Purple</option>
+              <option value="white">White</option>
+              <option value="yellow">Yellow</option>
+            </select>
+          </label>
+          {errors?.colorSelect && (
+            <span className="error">{errors.colorSelect}</span>
           )}
 
           <input
