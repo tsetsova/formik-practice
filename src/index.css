@@ -11,11 +11,20 @@
     @apply mt-8 md:w-1/2 mx-auto w-full px-3 mb-6 md:mb-0;
   }
 
+  .error {
+    @apply text-xs text-rose-500 block mb-4 -mt-2
+  }
+
   .h1 {
     @apply text-3xl font-bold underline text-center;
   }
+
   .input {
     @apply block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white;
+  }
+
+  .input-error {
+    @apply border-red-500;
   }
 
   .label {

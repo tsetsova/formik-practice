@@ -5,11 +5,51 @@ import React, { useState } from "react";
 function App() {
   const [name, setName] = useState("");
   const [element, setElement] = useState("default");
+  const [errors, setErrors] = useState({
+    nameInput: null,
+    elementSelect: null,
+  });
+
+  const unsetError = (key) => {
+    setErrors(errors => {
+      return {
+        ...errors,
+        [key]: null,
+      }
+    });
+  };
+
+  const setError = (key, message) => {
+    setErrors(errors => {
+      return {
+        ...errors,
+        [key]: message,
+      }
+    });
+  };
 
   const endpoint = "https://enz3kaqoiji4.x.pipedream.net/";
 
+  const handleNameValidate = () => {
+    if (name.length < 2 || name.length > 30) {
+      setError("nameInput", "Name should be between 2 and 30 characters");
+    } else {
+      unsetError("nameInput");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    handleNameValidate();
+
+    if (element === "default") {
+      setError("elementSelect", "Favorite element is required");
+      return;
+    }
+
+    if (errors.nameInput) {
+      return;
+    }
 
     await fetch(endpoint, {
       method: "post",
@@ -31,6 +71,7 @@ function App() {
   };
 
   const handleElementChange = (e) => {
+    unsetError("elementSelect")
     setElement(e.target.value);
   };
 
@@ -46,17 +87,21 @@ function App() {
             <input
               type="text"
               name="name"
-              className="input"
+              className={`input ${errors.nameInput && "input-error"}`}
               data-testid="name-input"
               onChange={(e) => handleNameChange(e)}
+              onBlur={() => handleNameValidate()}
               placeholder="Fill your name"
             />
           </label>
+          {errors?.nameInput && (
+            <span className="error">{errors.nameInput}</span>
+          )}
           <label className="label">
             What's your favorite element?
             <select
               name="pokemon"
-              className="input"
+              className={`input ${errors.elementSelect && "input-error"}`}
               data-testid="element-selector"
               defaultValue={element}
               onChange={(e) => handleElementChange(e)}
@@ -71,6 +116,10 @@ function App() {
               <option value="metal">Metal</option>
             </select>
           </label>
+          {errors?.elementSelect && (
+            <span className="error">{errors.elementSelect}</span>
+          )}
+
           <input
             type="submit"
             data-testid="primary-button"

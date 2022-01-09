@@ -6,7 +6,9 @@
 - [x] connect it to requestbin
 - [ ] switch to using json-server and a local db file
 - [x] add component tests
-- [ ] add validation
+- [x] add validation
+- [ ] test validation
+- [ ] add another field to make the form more complex
 - [ ] switch to using formik
 - [ ] switch to using yup for validation
 
