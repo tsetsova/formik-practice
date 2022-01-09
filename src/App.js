@@ -18,11 +18,11 @@ function App() {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, element })
+      body: JSON.stringify({ name, element }),
     })
       .then((res) => console.log(res))
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
@@ -47,6 +47,7 @@ function App() {
               type="text"
               name="name"
               className="input"
+              data-testid="name-input"
               onChange={(e) => handleNameChange(e)}
               placeholder="Fill your name"
             />
@@ -56,6 +57,7 @@ function App() {
             <select
               name="pokemon"
               className="input"
+              data-testid="element-selector"
               defaultValue={element}
               onChange={(e) => handleElementChange(e)}
             >
@@ -69,7 +71,12 @@ function App() {
               <option value="metal">Metal</option>
             </select>
           </label>
-          <input type="submit" value="Submit" className="btn-primary" />
+          <input
+            type="submit"
+            data-testid="primary-button"
+            value="Submit"
+            className="btn-primary"
+          />
         </form>
       </div>
     </div>

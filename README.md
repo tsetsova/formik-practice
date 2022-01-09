@@ -5,7 +5,7 @@
 - [x] add a basic form
 - [x] connect it to requestbin
 - [ ] switch to using json-server and a local db file
-- [ ] add component tests
+- [x] add component tests
 - [ ] add validation
 - [ ] switch to using formik
 - [ ] switch to using yup for validation
