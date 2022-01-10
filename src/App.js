@@ -109,7 +109,7 @@ function App() {
             />
           </label>
           {errors?.nameInput && (
-            <span className="error">{errors.nameInput}</span>
+            <p className="error" data-testid="name-error">{errors.nameInput}</p>
           )}
           <label className="label">
             What's your favorite element?
@@ -131,7 +131,7 @@ function App() {
             </select>
           </label>
           {errors?.elementSelect && (
-            <span className="error">{errors.elementSelect}</span>
+            <p className="error" data-testid="element-error">{errors.elementSelect}</p>
           )}
 
           <label className="label">
@@ -157,7 +157,7 @@ function App() {
             </select>
           </label>
           {errors?.colorSelect && (
-            <span className="error">{errors.colorSelect}</span>
+            <p className="error" data-testid="color-error">{errors.colorSelect}</p>
           )}
 
           <input

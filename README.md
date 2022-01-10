@@ -7,7 +7,7 @@
 - [ ] switch to using json-server and a local db file
 - [x] add component tests
 - [x] add validation
-- [ ] test validation
+- [x] test validation
 - [x] add another field to make the form more complex
 - [ ] switch to using formik
 - [ ] switch to using yup for validation
