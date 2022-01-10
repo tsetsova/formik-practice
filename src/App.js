@@ -1,92 +1,28 @@
 import "./App.css";
 
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function App() {
-  const [name, setName] = useState("");
-  const [element, setElement] = useState("placeholderElementMessage");
-  const [color, setColor] = useState("placeholderColorMessage");
-  const [errors, setErrors] = useState({
-    nameInput: null,
-    elementSelect: null,
-    colorSelect: null,
-  });
-
-  const unsetError = (key) => {
-    setErrors((errors) => {
-      return {
-        ...errors,
-        [key]: null,
-      };
-    });
-  };
-
-  const setError = (key, message) => {
-    setErrors((errors) => {
-      return {
-        ...errors,
-        [key]: message,
-      };
-    });
-  };
-
   const endpoint = "https://enz3kaqoiji4.x.pipedream.net/";
 
-  const handleNameValidate = () => {
-    if (name.length < 2 || name.length > 30) {
-      setError("nameInput", "Name should be between 2 and 30 characters");
-    } else {
-      unsetError("nameInput");
+  const handleSubmit = async (values) => {
+    if (values.name && values.element && values.color) {
+      await fetch(endpoint, {
+        method: "post",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ values }),
+      })
+        .then((res) => console.log(res))
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    handleNameValidate();
-
-    if (element === "placeholderElementMessage") {
-      setError("elementSelect", "Favorite element is required");
-    }
-
-    if (color === "placeholderColorMessage") {
-      setError("colorSelect", "Favorite color is required");
-    }
-
-    if (
-      errors.nameInput ||
-      element === "placeholderElementMessage" ||
-      color === "placeholderColorMessage"
-    ) {
-      return;
-    }
-
-    await fetch(endpoint, {
-      method: "post",
-      mode: "no-cors",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, element, color }),
-    })
-      .then((res) => console.log(res))
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleElementChange = (e) => {
-    unsetError("placeholderElementMessage");
-    setElement(e.target.value);
-  };
-
-  const handleColorChange = (e) => {
-    unsetError("placeholderColorMessage");
-    setColor(e.target.value);
   };
 
   return (
@@ -95,78 +31,106 @@ function App() {
         <h1 className="h1">Pokemon Quiz:</h1>
       </header>
       <div className="container">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label className="label">
-            Name:
-            <input
-              type="text"
-              name="name"
-              className={`input ${errors.nameInput && "input-error"}`}
-              data-testid="name-input"
-              onChange={(e) => handleNameChange(e)}
-              onBlur={() => handleNameValidate()}
-              placeholder="Fill in your name"
-            />
-          </label>
-          {errors?.nameInput && (
-            <p className="error" data-testid="name-error">{errors.nameInput}</p>
-          )}
-          <label className="label">
-            What's your favorite element?
-            <select
-              name="pokemon"
-              className={`input ${errors.elementSelect && "input-error"}`}
-              data-testid="element-selector"
-              defaultValue={element}
-              onChange={(e) => handleElementChange(e)}
-            >
-              <option value="placeholderElementMessage" disabled hidden>
-                Choose your element
-              </option>
-              <option value="water">Water</option>
-              <option value="air">Air</option>
-              <option value="fire">Fire</option>
-              <option value="earth">Earth</option>
-              <option value="metal">Metal</option>
-            </select>
-          </label>
-          {errors?.elementSelect && (
-            <p className="error" data-testid="element-error">{errors.elementSelect}</p>
-          )}
+        <Formik
+          initialValues={{
+            name: "",
+            color: "",
+            element: "",
+          }}
+          validationSchema={Yup.object({
+            name: Yup.string()
+              .matches(
+                /^[aA-zZ\s]+$/,
+                "Only letters allowed "
+              )
+              .min(2, "Must be 2 characters or less")
+              .max(30, "Must be 30 characters or less")
+              .required("Required"),
+            element: Yup.string().required("Favorite element is required"),
+            color: Yup.string().required("Favorite color is required"),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            handleSubmit(values);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <Form>
+              <label htmlFor="name">What's your name?</label>
+              <Field
+                type="text"
+                name="name"
+                className="input"
+                data-testid="name-input"
+              ></Field>
+              <ErrorMessage
+                name="name"
+                component="div"
+                className="error"
+                data-testid="name-error"
+              />
 
-          <label className="label">
-            What's your favorite color?
-            <select
-              name="pokemon"
-              className={`input ${errors.elementSelect && "input-error"}`}
-              data-testid="color-selector"
-              defaultValue={color}
-              onChange={(e) => handleColorChange(e)}
-            >
-              <option value="placeholderColorMessage" disabled hidden>
-                Choose your color
-              </option>
-              <option value="black">Black</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="orange">Orange</option>
-              <option value="red">Red</option>
-              <option value="purple">Purple</option>
-              <option value="white">White</option>
-              <option value="yellow">Yellow</option>
-            </select>
-          </label>
-          {errors?.colorSelect && (
-            <p className="error" data-testid="color-error">{errors.colorSelect}</p>
-          )}
+              <label htmlFor="color">What's your favorite color?</label>
+              <Field
+                as="select"
+                name="color"
+                className="input"
+                data-testid="color-selector"
+              >
+                <option value="" label="Choose your color" />
+                <option value="black">Black</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="orange">Orange</option>
+                <option value="red">Red</option>
+                <option value="purple">Purple</option>
+                <option value="white">White</option>
+                <option value="yellow">Yellow</option>
+              </Field>
+              <ErrorMessage
+                name="color"
+                component="div"
+                className="error"
+                data-testid="color-error"
+              />
 
-          <input
-            type="submit"
-            data-testid="primary-button"
-            value="Submit"
-            className="btn-primary"
-          />
-        </form>
+              <label htmlFor="element">What's your favorite element?</label>
+              <Field
+                as="select"
+                name="element"
+                className="input"
+                data-testid="element-selector"
+              >
+                <option value="" label="Choose your element" />
+                <option value="water">Water</option>
+                <option value="air">Air</option>
+                <option value="fire">Fire</option>
+                <option value="earth">Earth</option>
+                <option value="metal">Metal</option>
+              </Field>
+              <ErrorMessage
+                name="element"
+                component="div"
+                className="error"
+                data-testid="element-error"
+              />
+              <button
+                type="submit"
+                className="btn-primary"
+                data-testid="primary-button"
+              >
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

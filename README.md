@@ -9,8 +9,10 @@
 - [x] add validation
 - [x] test validation
 - [x] add another field to make the form more complex
-- [ ] switch to using formik
-- [ ] switch to using yup for validation
+- [x] switch to using formik
+- [ ] disable button when loading
+- [ ] show confirmation if form submit was succesful and error if failed 
+- [x] switch to using yup for validation
 
 ## Other ideas
 
