@@ -1,6 +1,5 @@
-/* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import App from "../App";
 
 describe("renders correctly", () => {
   test("renders form correctly", () => {

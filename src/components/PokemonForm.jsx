@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import FlashMessage from "react-flash-message";
-import { MdErrorOutline, MdCheckCircleOutline } from "react-icons/md";
+import FlashMessage from "./FlashMessage";
 
 function PokemonForm({ onSubmit }) {
   return (
@@ -25,16 +24,11 @@ function PokemonForm({ onSubmit }) {
       {({ status }) => (
         <Form>
           {status?.message && (
-            <FlashMessage duration={3000}>
-              <div className="flex flex-row">
-                <p className={`flex ${status.ok ? "success" : "error"}`}>
-                  <div className="flex items-center mr-1">
-                    {status.ok ? <MdCheckCircleOutline /> : <MdErrorOutline />}
-                  </div>
-                  {status.message}
-                </p>
-              </div>
-            </FlashMessage>
+            <FlashMessage
+              duration={3000}
+              message={status.message}
+              severity={status.ok ? "info" : "error"}
+            />
           )}
 
           <label htmlFor="name">What's your name?</label>

@@ -1,6 +1,5 @@
 import "./App.css";
-import React from "react";
-import PokemonForm from "./PokemonForm";
+import PokemonForm from "./components/PokemonForm";
 
 function App() {
   const endpoint = "http://localhost:3004/responses";

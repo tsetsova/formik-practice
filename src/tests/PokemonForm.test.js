@@ -2,7 +2,7 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
-import PokemonForm from "./PokemonForm";
+import PokemonForm from "../components/PokemonForm";
 
 describe("submits correctly", () => {
   test("submits form correctly", async () => {

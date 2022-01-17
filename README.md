@@ -7,8 +7,8 @@
 - [x] switch to using json-server and a local db file
 - [x] add component tests
 - [x] add validation
-- [ ] make react-flash-message myself
-- [ ] test flash message cases
+- [x] make react-flash-message myself
+- [x] test the flash messages
 - [x] test validation
 - [x] add another field to make the form more complex
 - [x] switch to using formik

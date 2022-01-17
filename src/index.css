@@ -11,6 +11,14 @@
     @apply mt-8 md:w-1/2 mx-auto w-full px-3 mb-6 md:mb-0;
   }
 
+  .flash-error {
+    @apply text-base text-rose-500 block mb-4 -mt-2
+  }
+
+  .flash-info {
+    @apply text-base text-green-600 block mb-4 -mt-2
+  }
+
   .error {
     @apply text-xs text-rose-500 block mb-4 -mt-2
   }
