@@ -7,7 +7,10 @@ import PokemonForm from "./PokemonForm";
 describe("submits correctly", () => {
   test("submits form correctly", async () => {
     const onSubmit = jest.fn();
+    const formikBag = expect.anything();
+
     render(<PokemonForm onSubmit={onSubmit} />);
+
     const nameInput = screen.getByTestId(/name-input/i);
 
     fireEvent.focus(nameInput);
@@ -21,16 +24,19 @@ describe("submits correctly", () => {
       target: { value: "red" },
     });
 
-    await act(async() => {
+    await act(async () => {
       userEvent.click(screen.getByTestId(/primary-button/i));
-    })
-    
+    });
+
     await waitFor(() =>
-      expect(onSubmit).toHaveBeenCalledWith({
-        name: "Mary Sue",
-        element: "fire",
-        color: "red",
-      })
+      expect(onSubmit).toHaveBeenCalledWith(
+        {
+          name: "Mary Sue",
+          element: "fire",
+          color: "red",
+        },
+        formikBag
+      )
     );
   });
 });

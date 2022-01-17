@@ -2,26 +2,36 @@ import "./App.css";
 import React from "react";
 import PokemonForm from "./PokemonForm";
 
-function refreshPage() {
-  window.location.reload(false);
-}
-
 function App() {
   const endpoint = "http://localhost:3004/responses";
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { setStatus, resetForm }) => {
     if (values.name && values.element && values.color) {
       await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       })
-        .then((res) => console.log(res))
+        .then((response) => {
+          if (response.ok) {
+            resetForm();
+            setStatus({
+              message: "Form succesfully submitted!",
+              ok: true,
+            });
+          } else {
+            setStatus({
+              message: `Form failed to submit:${response.statusText}`,
+              ok: false,
+            });
+          }
+        })
         .catch((error) => {
-          console.error("Error:", error);
+          setStatus({
+            message: `Form failed to submit:${error}`,
+            ok: false,
+          });
         });
-
-      refreshPage()
     }
   };
 

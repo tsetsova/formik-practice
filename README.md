@@ -7,12 +7,15 @@
 - [x] switch to using json-server and a local db file
 - [x] add component tests
 - [x] add validation
+- [ ] make react-flash-message myself
+- [ ] test flash message cases
 - [x] test validation
 - [x] add another field to make the form more complex
 - [x] switch to using formik
 - [ ] disable button when loading
-- [ ] show confirmation if form submit was succesful and error if failed 
+- [x] show confirmation if form submit was succesful and error if failed 
 - [x] switch to using yup for validation
+- [ ] test FormikBag
 
 ## Other ideas
 

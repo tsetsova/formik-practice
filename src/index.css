@@ -15,6 +15,10 @@
     @apply text-xs text-rose-500 block mb-4 -mt-2
   }
 
+  .success {
+    @apply text-xs text-green-600 block mb-4 -mt-2
+  }
+
   .h1 {
     @apply text-3xl font-bold underline text-center;
   }
