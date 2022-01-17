@@ -21,9 +21,9 @@ describe("submits correctly", () => {
       target: { value: "red" },
     });
 
-    // await act(async() => {
+    await act(async() => {
       userEvent.click(screen.getByTestId(/primary-button/i));
-    // })
+    })
     
     await waitFor(() =>
       expect(onSubmit).toHaveBeenCalledWith({

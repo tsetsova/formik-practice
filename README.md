@@ -4,7 +4,7 @@
 
 - [x] add a basic form
 - [x] connect it to requestbin
-- [ ] switch to using json-server and a local db file
+- [x] switch to using json-server and a local db file
 - [x] add component tests
 - [x] add validation
 - [x] test validation
