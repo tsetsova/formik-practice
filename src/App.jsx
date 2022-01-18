@@ -4,7 +4,7 @@ import PokemonForm from "./components/PokemonForm";
 function App() {
   const endpoint = "http://localhost:3004/responses";
 
-  const handleSubmit = async (values, { setStatus, resetForm }) => {
+  const handleSubmit = async (values, { setStatus, resetForm, setSubmitting }) => {
     if (values.name && values.element && values.color) {
       await fetch(endpoint, {
         method: "POST",
@@ -18,6 +18,7 @@ function App() {
               message: "Form succesfully submitted!",
               ok: true,
             });
+            setSubmitting(false);
           } else {
             setStatus({
               message: `Form failed to submit:${response.statusText}`,

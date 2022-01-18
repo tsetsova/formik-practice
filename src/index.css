@@ -4,7 +4,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-32;
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-32 flex justify-center items-center h-10;
   }
 
   .container {

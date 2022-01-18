@@ -1,4 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ImSpinner } from "react-icons/im";
 import * as Yup from "yup";
 import FlashMessage from "./FlashMessage";
 
@@ -21,7 +22,7 @@ function PokemonForm({ onSubmit }) {
       })}
       onSubmit={onSubmit}
     >
-      {({ status }) => (
+      {({ status, isSubmitting }) => (
         <Form>
           {status?.message && (
             <FlashMessage
@@ -93,8 +94,9 @@ function PokemonForm({ onSubmit }) {
             type="submit"
             className="btn-primary"
             data-testid="primary-button"
+            disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? <ImSpinner /> : "Submit"}
           </button>
         </Form>
       )}
