@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import PokemonForm from "./components/PokemonForm";
+import { ImSpinner } from "react-icons/im";
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const endpoint = "http://localhost:3004/responses";
 
-  const handleSubmit = async (values, { setStatus, resetForm, setSubmitting }) => {
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const handleSubmit = async (
+    values,
+    { setStatus, resetForm, setSubmitting }
+  ) => {
     if (values.name && values.element && values.color) {
       await fetch(endpoint, {
         method: "POST",
@@ -36,14 +46,21 @@ function App() {
   };
 
   return (
-    <div className="text-gray-900 container mt-8">
-      <header>
+    <div className="container">
+      <div className="flex-column mx-auto">
         <h1 className="h1" data-testid="heading">
           Pokemon Quiz:
         </h1>
-      </header>
-      <div className="container">
-        <PokemonForm onSubmit={handleSubmit} />
+
+        <div className="w-72 mx-auto mt-6">
+          {loading ? (
+            <span className="absolute top-1/2 left-1/2">
+              <ImSpinner size={32} />
+            </span>
+          ) : (
+            <PokemonForm onSubmit={handleSubmit} />
+          )}
+        </div>
       </div>
     </div>
   );
