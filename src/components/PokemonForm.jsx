@@ -8,8 +8,10 @@ function PokemonForm({ onSubmit }) {
     <Formik
       initialValues={{
         name: "",
-        color: "",
-        element: "",
+        preferences: {
+          element: "",
+          color: "",
+        },
       }}
       validationSchema={Yup.object({
         name: Yup.string()
@@ -17,8 +19,10 @@ function PokemonForm({ onSubmit }) {
           .min(2, "Must be 2 characters or less")
           .max(30, "Must be 30 characters or less")
           .required("Required"),
-        element: Yup.string().required("Favorite element is required"),
-        color: Yup.string().required("Favorite color is required"),
+          preferences: Yup.object({
+          color: Yup.string().required("Required"),
+          element: Yup.string().required("Required"),
+        }),
       })}
       onSubmit={onSubmit}
     >
@@ -31,13 +35,14 @@ function PokemonForm({ onSubmit }) {
               severity={status.ok ? "info" : "error"}
             />
           )}
-          <div>
+          <div className="form-control">
             <label htmlFor="name">What's your name?</label>
             <Field
               type="text"
               name="name"
               className="input"
               data-testid="name-input"
+              placeholder="Fill in your name"
             ></Field>
             <ErrorMessage
               name="name"
@@ -46,11 +51,11 @@ function PokemonForm({ onSubmit }) {
               data-testid="name-error"
             />
           </div>
-          <div>
+          <div className="form-control">
             <label htmlFor="color">What's your favorite color?</label>
             <Field
               as="select"
-              name="color"
+              name="preferences.color"
               className="input"
               data-testid="color-selector"
             >
@@ -65,17 +70,17 @@ function PokemonForm({ onSubmit }) {
               <option value="yellow">Yellow</option>
             </Field>
             <ErrorMessage
-              name="color"
+              name="preferences.color"
               component="div"
               className="error"
               data-testid="color-error"
             />
           </div>
-          <div>
+          <div className="form-control">
             <label htmlFor="element">What's your favorite element?</label>
             <Field
               as="select"
-              name="element"
+              name="preferences.element"
               className="input"
               data-testid="element-selector"
             >
@@ -87,7 +92,7 @@ function PokemonForm({ onSubmit }) {
               <option value="metal">Metal</option>
             </Field>
             <ErrorMessage
-              name="element"
+              name="preferences.element"
               component="div"
               className="error"
               data-testid="element-error"

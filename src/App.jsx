@@ -15,7 +15,7 @@ function App() {
     values,
     { setStatus, resetForm, setSubmitting }
   ) => {
-    if (values.name && values.element && values.color) {
+    if (values.name && values.preferences.color && values.preferences.element) {
       await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,10 +47,9 @@ function App() {
 
   return (
     <div className="container">
-      <div className="flex-column mx-auto">
-        <h1 className="h1" data-testid="heading">
-          Pokemon Quiz:
-        </h1>
+      <h1 className="h1" data-testid="heading">
+        Pokemon Quiz:
+      </h1>
 
         <div className="w-72 mx-auto mt-6">
           {loading ? (

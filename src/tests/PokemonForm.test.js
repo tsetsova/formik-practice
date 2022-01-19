@@ -32,8 +32,10 @@ describe("submits correctly", () => {
       expect(onSubmit).toHaveBeenCalledWith(
         {
           name: "Mary Sue",
-          element: "fire",
-          color: "red",
+          preferences: {
+            element: "fire",
+            color: "red",
+          },
         },
         formikBag
       )

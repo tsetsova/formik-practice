@@ -15,11 +15,14 @@
 - [x] disable button when loading
 - [x] show confirmation if form submit was succesful and error if failed
 - [x] switch to using yup for validation
+- [x] switch to using a nested object
 - [ ] test FormikBag
 
 ## Other ideas
-
+- expolore react-router
+- explore react-query
 - once the form gets more complicated, create a basic Rails api, where the pokemon decision logic is calculated. The front end will send the user response to the api and the api will return the pokemon back
 - save user responses in postgres
 - switch to using graphql between react and rails
+- expolore apollo 
 - add typescript
