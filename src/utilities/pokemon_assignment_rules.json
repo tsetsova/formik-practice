@@ -1,0 +1,52 @@
+{
+  "fire": {
+    "black": "alolan-marowak",
+    "blue": "mega-charizard-y",
+    "green": "numel",
+    "orange": "charmander",
+    "purple": "litwick",
+    "red": "vulpix",
+    "white": "ponyta",
+    "yellow": "fennekin"
+  },
+  "water": {
+    "black": "empoleon",
+    "blue": "squirtle",
+    "green": "politoed",
+    "orange": "magikarp",
+    "purple": "shellder",
+    "red": "octillery",
+    "white": "dewgong",
+    "yellow": "psyduck"
+  },
+  "air": {
+    "black": "swellow",
+    "blue": "articuno",
+    "green": "xatu",
+    "orange": "ho-oh",
+    "purple": "oricorio",
+    "red": "pidgeotto",
+    "white": "swanna",
+    "yellow": "pelipper"
+  },
+  "earth": {
+    "black": "donphan",
+    "blue": "phanpy",
+    "green": "larvitar",
+    "orange": "trapinch",
+    "purple": "nidoking",
+    "red": "groudon",
+    "white": "nincada",
+    "yellow": "sandshrew"
+  },
+  "metal": {
+    "black": "meowth",
+    "blue": "bronzong",
+    "green": "copperajah",
+    "orange": "cufant",
+    "purple": "genesect",
+    "red": "scizor",
+    "white": "duraludon",
+    "yellow": "meltan"
+  }
+}

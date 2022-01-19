@@ -17,6 +17,11 @@
 - [x] switch to using yup for validation
 - [x] switch to using a nested object
 - [ ] test FormikBag
+- [ ] test and setup app to fail gracefully if there's no match for pokemon
+- [x] determine favorite pokemon
+- [ ] be able to retake the quiz after taking it
+- [ ] create separate pages for the form and the answer page
+- [ ] store answer in session cookie?
 
 ## Other ideas
 - expolore react-router
