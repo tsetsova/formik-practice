@@ -1,4 +1,8 @@
-import { render, screen } from "@testing-library/react";
+/* eslint-disable testing-library/no-unnecessary-act */
+
+import { render, screen, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
 import PokemonAnswer from "../components/PokemonAnswer";
 
 describe("renders correctly", () => {
@@ -55,16 +59,33 @@ describe("formats correctly", () => {
     element: "fire",
   };
   test("render's the heading correctly", () => {
-    render(<PokemonAnswer rules={rules} response={response} />);
-    const heading = screen.queryByTestId(/heading/i);
+    render(
+      <PokemonAnswer rules={rules} response={response} onClick={() => {}} />
+    );
+    const heading = screen.getByTestId(/heading/i);
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent("Mary Sue, your Pokemon is:");
   });
 
   test("formats multi word names of pokemons correctly", () => {
-    render(<PokemonAnswer rules={rules} response={response} />);
+    render(
+      <PokemonAnswer rules={rules} response={response} onClick={() => {}} />
+    );
     const pokemon = screen.getByTestId(/mega-charizard-y-name/i);
     expect(pokemon).toBeInTheDocument();
     expect(pokemon).toHaveTextContent("Mega Charizard Y!");
+  });
+
+  test("renders a working retry button", async () => {
+    let onClick = jest.fn();
+    render(
+      <PokemonAnswer rules={rules} response={response} onClick={onClick} />
+    );
+    const retryButton = screen.getByTestId(/retry/i);
+    expect(retryButton).toBeInTheDocument();
+    await act(async () => {
+      userEvent.click(screen.getByTestId(/retry/i));
+    });
+    await waitFor(() => expect(onClick).toHaveBeenCalled());
   });
 });

@@ -19,15 +19,17 @@
 - [ ] test FormikBag
 - [ ] test and setup app to fail gracefully if there's no match for pokemon
 - [x] determine favorite pokemon
-- [ ] be able to retake the quiz after taking it
+- [x] be able to retake the quiz after taking it
+- [ ] have the name prefilled when retaking the quiz?
 - [ ] create separate pages for the form and the answer page
 - [ ] store answer in session cookie?
 
 ## Other ideas
+
 - expolore react-router
 - explore react-query
-- once the form gets more complicated, create a basic Rails api, where the pokemon decision logic is calculated. The front end will send the user response to the api and the api will return the pokemon back
+- once the form gets more complicated, create a basic Rails api, where the pokemon decision logic is calculated. The front end will send the user response to the api and the api will return the pokemon back (the goal of this project is to recreate our stack in a simple project with a limited scope, even if it's over complciating things tech-wise)
 - save user responses in postgres
 - switch to using graphql between react and rails
-- expolore apollo 
+- expolore apollo
 - add typescript

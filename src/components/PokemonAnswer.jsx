@@ -19,7 +19,7 @@ function formatPokemonName(name) {
   }
 }
 
-function PokemonAnswer({ response, rules }) {
+function PokemonAnswer({ response, rules, onClick }) {
   let [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
@@ -43,6 +43,15 @@ function PokemonAnswer({ response, rules }) {
             className="justify-center"
             data-testid={`${pokemon}-image`}
           />
+                      <div className="flex items-center mx-auto">
+              <button
+                onClick={onClick}
+                className="btn-primary"
+                data-testid="retry"
+              >
+                Retry?
+              </button>
+            </div>
         </>
       )}
     </div>

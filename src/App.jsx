@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import PokemonForm from "./components/PokemonForm";
 import { ImSpinner } from "react-icons/im";
 import PokemonAnswer from "./components/PokemonAnswer";
@@ -7,6 +6,8 @@ import PokemonAnswer from "./components/PokemonAnswer";
 function App() {
   const [loading, setLoading] = useState(true);
   const [responded, setResponded] = useState(false);
+  const [retry, setRetry] = useState(false);
+
   const [response, setResponse] = useState({});
   const [rules, setRules] = useState({});
 
@@ -16,6 +17,11 @@ function App() {
     setLoading(false);
     setRules(require("./utilities/pokemon_assignment_rules.json"));
   }, []);
+
+  const handleRetry = () => {
+    setRetry(true);
+    setResponded(false);
+  };
 
   const handleSubmit = async (
     values,
@@ -35,6 +41,7 @@ function App() {
               ok: true,
             });
             setSubmitting(false);
+            setRetry(false);
             setResponse({
               name: values.name,
               color: values.preferences.color,
@@ -68,10 +75,16 @@ function App() {
           <span className="absolute top-1/2 left-1/2">
             <ImSpinner size={32} />
           </span>
-        ) : !responded ? (
+        ) : !responded || retry ? (
           <PokemonForm onSubmit={handleSubmit} />
         ) : (
-          <PokemonAnswer response={response} rules={rules}/>
+          <>
+            <PokemonAnswer
+              response={response}
+              rules={rules}
+              onClick={handleRetry}
+            />
+          </>
         )}
       </div>
     </div>
