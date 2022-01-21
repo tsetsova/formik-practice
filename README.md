@@ -16,13 +16,14 @@
 - [x] show confirmation if form submit was succesful and error if failed
 - [x] switch to using yup for validation
 - [x] switch to using a nested object
-- [ ] test FormikBag
 - [ ] test and setup app to fail gracefully if there's no match for pokemon
 - [x] determine favorite pokemon
 - [x] be able to retake the quiz after taking it
-- [ ] have the name prefilled when retaking the quiz?
+- [x] have the name prefilled when retaking the quiz?
+- [ ] figure out the right way to test this? Perhaps a capybara test?
 - [ ] create separate pages for the form and the answer page
 - [ ] store answer in session cookie?
+- [ ] switch from formik to react-hook-form -> at which point the project won't be called formik-practice anymore lol
 
 ## Other ideas
 

@@ -76,7 +76,7 @@ function App() {
             <ImSpinner size={32} />
           </span>
         ) : !responded || retry ? (
-          <PokemonForm onSubmit={handleSubmit} />
+          <PokemonForm onSubmit={handleSubmit} userName={response.name || ""}/>
         ) : (
           <>
             <PokemonAnswer

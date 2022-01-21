@@ -3,11 +3,11 @@ import { ImSpinner } from "react-icons/im";
 import * as Yup from "yup";
 import FlashMessage from "./FlashMessage";
 
-function PokemonForm({ onSubmit }) {
+function PokemonForm({ onSubmit, userName }) {
   return (
     <Formik
       initialValues={{
-        name: "",
+        name: userName,
         preferences: {
           element: "",
           color: "",
@@ -25,6 +25,8 @@ function PokemonForm({ onSubmit }) {
         }),
       })}
       onSubmit={onSubmit}
+      enableReinitialize
+      validateOnChange={false}
     >
       {({ status, isSubmitting }) => (
         <Form>
