@@ -27,7 +27,7 @@ function App() {
     values,
     { setStatus, resetForm, setSubmitting }
   ) => {
-    if (values.name && values.preferences.color && values.preferences.element) {
+    if (values.name && values.color && values.element) {
       await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,8 +44,8 @@ function App() {
             setRetry(false);
             setResponse({
               name: values.name,
-              color: values.preferences.color,
-              element: values.preferences.element,
+              color: values.color,
+              element: values.element,
             });
             setResponded(true);
           } else {

@@ -17,10 +17,10 @@ describe("submits correctly", () => {
 
     userEvent.type(nameInput, "Mary Sue");
 
-    fireEvent.change(screen.getByTestId(/element-selector/i), {
+    fireEvent.change(screen.getByTestId(/element-input/i), {
       target: { value: "fire" },
     });
-    fireEvent.change(screen.getByTestId(/color-selector/i), {
+    fireEvent.change(screen.getByTestId(/color-input/i), {
       target: { value: "red" },
     });
 
@@ -32,10 +32,8 @@ describe("submits correctly", () => {
       expect(onSubmit).toHaveBeenCalledWith(
         {
           name: "Mary Sue",
-          preferences: {
-            element: "fire",
-            color: "red",
-          },
+          element: "fire",
+          color: "red",
         },
         formikBag
       )
@@ -60,11 +58,17 @@ describe("validates fields correctly", () => {
   test("shows name error if the user fills in numbers", async () => {
     render(<PokemonForm onSubmit={() => {}} />);
     const nameInput = screen.getByTestId(/name-input/i);
+
     userEvent.type(nameInput, "1");
+
     await waitFor(() =>
       expect(screen.getByTestId(/name-input/i)).toHaveValue("1")
     );
-    nameInput.blur();
+
+    await act(async () => {
+      nameInput.blur();
+    });
+
     const nameError = screen.getByTestId(/name-error/i);
     await waitFor(() => expect(nameError).toBeInTheDocument());
   });
@@ -73,10 +77,15 @@ describe("validates fields correctly", () => {
     render(<PokemonForm onSubmit={() => {}} />);
     const nameInput = screen.getByTestId(/name-input/i);
     userEvent.type(nameInput, "~>@($");
+
     await waitFor(() =>
       expect(screen.getByTestId(/name-input/i)).toHaveValue("~>@($")
     );
-    nameInput.blur();
+
+    await act(async () => {
+      nameInput.blur();
+    });
+
     const nameError = screen.getByTestId(/name-error/i);
     await waitFor(() => expect(nameError).toBeInTheDocument());
   });
@@ -88,7 +97,11 @@ describe("validates fields correctly", () => {
     await waitFor(() =>
       expect(screen.getByTestId(/name-input/i)).toHaveValue("a")
     );
-    nameInput.blur();
+
+    await act(async () => {
+      nameInput.blur();
+    });
+
     const nameError = screen.getByTestId(/name-error/i);
     await waitFor(() => expect(nameError).toBeInTheDocument());
   });
@@ -101,7 +114,9 @@ describe("validates fields correctly", () => {
     await waitFor(() =>
       expect(screen.getByTestId(/name-input/i)).toHaveValue(longName)
     );
-    nameInput.blur();
+    await act(async () => {
+      nameInput.blur();
+    });
     const nameError = screen.getByTestId(/name-error/i);
     await waitFor(() => expect(nameError).toBeInTheDocument());
   });

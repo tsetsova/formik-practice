@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-function capitalizeFirstCharacter(word) {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
+import { capitalizeFirstCharacter } from "../utilities/helpers";
 
 function determinePokemon(rules, element, color) {
   try {
